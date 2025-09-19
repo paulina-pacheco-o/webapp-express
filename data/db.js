@@ -15,4 +15,6 @@ connection.connect((err) => {
   else {
     console.log("Connesione al db avvenuta correttamente")
   }
-})
+});
+
+module.exports = connection;
