@@ -7,7 +7,9 @@ const movieRouter = require("./routers/movieRouter");
 
 app.use(cors({ origin: process.env.FE_APP }));
 
-app.use(express.static('public'))
+app.use(express.static('public'));
+
+app.use(express.json());
 
 app.get("/", (req, res) => {
   res.send("Rotta base del mio blog")
