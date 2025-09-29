@@ -1,6 +1,7 @@
 //importiamo la connessione al db
 const connection = require('../data/db');
 
+
 //index
 const index = (req, res) => {
   const sql = "SELECT * FROM movies";
@@ -48,7 +49,42 @@ const show = (req, res) => {
   })
 }
 
+//const store = (req, res) => {
+//const { title, director, genre, release_year, abstract } = req.body
+//console.log(req.file);
+
+//const fileName = `${req.file.filename}`;
+
+//const query = "INSERT INTO movies (title, director, genre, release_year, abstract, image) VALUES (?, ?, ?, ?, ?, ?)";
+
+//connection.query(query, [title, director, fileName, genre, release_year, abstract], (err, result) => {
+//  if (err) {
+//  return res.status(500).json({ error: "Errore durante l'inserimento" + err })
+//}
+//res.status(201).json({
+//result: true,
+//message: "Film creato con successo"
+//});
+//})
+//}
+
+const storeReview = (req, res) => {
+  const { id } = req.params;
+
+  const { text, name, vote } = req.body;
+
+  const sql = "INSER INTO reviwes (movie_id, name, vote, text) VALUES (?, ?, ?, ?)";
+
+  connection.query(sql, [id, name, vote, text], (err, result) => {
+    if (err) return res.status(500).json({ result: false, message: "Errore durante l'inserimento della recensione" });
+
+    res.status(201).json({ result: true, message: "Recensione inserita correttamente" });
+  })
+}
+
 module.exports = {
   index,
-  show
+  show,
+  //store,
+  storeReview
 }
